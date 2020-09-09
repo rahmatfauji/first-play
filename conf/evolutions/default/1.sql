@@ -66,6 +66,22 @@ create table general_information (
   constraint pk_general_information primary key (id)
 );
 
+create table roles (
+  id                            bigint(20) UNSIGNED auto_increment not null,
+  name                          varchar(255),
+  description                   varchar(255),
+  created_at                    varchar(100),
+  updated_at                    varchar(100),
+  constraint pk_roles primary key (id)
+);
+
+create table roles_users (
+  id                            bigint(20) UNSIGNED auto_increment not null,
+  roles_id                      integer not null,
+  users_id                      varchar(255),
+  constraint pk_roles_users primary key (id)
+);
+
 create table users (
   id                            varchar(255) not null,
   username                      varchar(100),
@@ -91,6 +107,10 @@ create table user_tokens (
 # --- !Downs
 
 drop table if exists general_information;
+
+drop table if exists roles;
+
+drop table if exists roles_users;
 
 drop table if exists users;
 

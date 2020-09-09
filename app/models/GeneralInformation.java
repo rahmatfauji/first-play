@@ -14,7 +14,7 @@ import java.util.List;
 public class GeneralInformation extends BaseModel{
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false)
     @JsonIgnore
     public User user;
 
@@ -45,8 +45,8 @@ public class GeneralInformation extends BaseModel{
     @Column(columnDefinition = "VARCHAR(100)")
     public String country;
 
-    public void setData (JsonNode json) {
-        this.user_id=json.findPath("user_id").textValue();
+    public void setData (String id, JsonNode json) {
+        this.user_id=id;
         this.fullname=json.findPath("fullname").textValue();
         this.gender=json.findPath("gender").textValue();
         this.dob=json.findPath("dob").textValue();

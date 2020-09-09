@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import io.ebean.Model;
@@ -8,7 +8,6 @@ import io.ebean.Model;
 
 import javax.persistence.*;
 
-import org.joda.time.DateTime;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +37,10 @@ public class User extends Model{
 	@Column(columnDefinition = "VARCHAR(100)")
 	public String password;
 
+	@ManyToMany(mappedBy = "user")
+	@JoinTable
+	public List<Role> role = new ArrayList<Role>();
+
 	@JsonIgnore
 	@Column(columnDefinition = "VARCHAR(100)")
 	public String createdAt;
@@ -52,7 +55,7 @@ public class User extends Model{
 		bcrypt = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
 		return bcrypt;
 	}
-	
+
 	public void setData (JsonNode json) {
 		this.id=UUID.randomUUID().toString().replace("-","");
 		this.username=json.findPath("username").textValue();
