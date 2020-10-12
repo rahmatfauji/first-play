@@ -3,13 +3,14 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-GET		/api/employee						controllers.TestRestController.index
-GET		/api/employee/:id						controllers.TestRestController.getWithId(id:Integer)
-POST	/api/register			controllers.core.AuthController.register
-GET		/api/account			controllers.core.AuthController.account
-POST	/api/login			controllers.core.AuthController.login
-
+GET     /                       controllers.HomeController.index
+GET		/api/employee			controllers.TestRestController.index(request:Request)
+GET		/api/users/:paging			controllers.TestRestController.userShow(paging: Integer,  request:Request)
+GET		/api/employee/:id		controllers.TestRestController.getWithId(id:String, request:Request)
+POST	/api/register			controllers.core.AuthController.register(request:Request)
+GET		/api/account			controllers.core.AuthController.account(request:Request)
+POST	/api/login			    controllers.core.AuthController.login(request:Request)
+POST    /api/logout             controllers.core.AuthController.logout(request:Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

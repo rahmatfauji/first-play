@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
+import io.ebean.Expr;
 import models.GeneralInformation;
 import models.UserRole;
 import models.UserToken;
@@ -41,10 +42,9 @@ public class AuthController extends Controller {
 			if (json.isNull()) {
 				return ok(JsonResponse.error(JsonResponse.MSG_JSON_REQUIRED));
 			}
-			int isThere = User.find.query().where().eq("email", email).findCount();
-			int isThere2 = User.find.query().where().eq("username", username).findCount();
+			int isThere = User.find.query().where().or(Expr.eq("email",email), Expr.eq("username", username)).findCount();
 			System.out.println(isThere);
-			if (isThere > 0 || isThere2 > 0) {
+			if (isThere > 0 ) {
 				return badRequest(JsonResponse.error("Your email or username is already register"));
 			} else {
 				User.db().beginTransaction();

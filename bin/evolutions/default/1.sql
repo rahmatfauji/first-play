@@ -52,12 +52,41 @@ BEGIN
   EXECUTE stmt;
 END
 $$
+create table general_information (
+  id                            bigint(20) UNSIGNED auto_increment not null,
+  user_id                       varchar(100),
+  fullname                      varchar(100),
+  gender                        varchar(100),
+  dob                           varchar(100),
+  phone                         varchar(100),
+  address                       varchar(100),
+  city                          varchar(100),
+  province                      varchar(100),
+  country                       varchar(100),
+  constraint pk_general_information primary key (id)
+);
+
+create table roles (
+  id                            bigint(20) UNSIGNED auto_increment not null,
+  name                          varchar(255),
+  description                   varchar(255),
+  created_at                    varchar(100),
+  updated_at                    varchar(100),
+  constraint pk_roles primary key (id)
+);
+
+create table roles_users (
+  id                            bigint(20) UNSIGNED auto_increment not null,
+  roles_id                      integer not null,
+  users_id                      varchar(255),
+  constraint pk_roles_users primary key (id)
+);
+
 create table users (
   id                            varchar(255) not null,
   username                      varchar(100),
   email                         varchar(100),
   password                      varchar(100),
-  phone                         varchar(100),
   created_at                    varchar(100),
   updated_at                    varchar(100),
   constraint pk_users primary key (id)
@@ -76,6 +105,12 @@ create table user_tokens (
 
 
 # --- !Downs
+
+drop table if exists general_information;
+
+drop table if exists roles;
+
+drop table if exists roles_users;
 
 drop table if exists users;
 
