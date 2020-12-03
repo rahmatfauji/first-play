@@ -52,6 +52,7 @@ public class AuthController extends Controller {
             int isThere = User.find.query().where().or(Expr.eq("email", email), Expr.eq("username", username)).findCount();
             System.out.println(isThere);
             if (isThere > 0) {
+                System.out.println("Your email or username is already register");
                 return badRequest(JsonResponse.error("Your email or username is already register"));
             } else {
                 User.db().beginTransaction();
@@ -64,7 +65,7 @@ public class AuthController extends Controller {
                 generalInformation.save();
 
                 UserRole userRole = new UserRole();
-                userRole.setData(user.id, json);
+                userRole.setData(user.id);
                 userRole.save();
 
                 User.db().commitTransaction();
@@ -73,6 +74,7 @@ public class AuthController extends Controller {
             }
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return badRequest(JsonResponse.error(e.getMessage()));
         }
 
@@ -196,71 +198,84 @@ public class AuthController extends Controller {
 
         String email = json.findPath("email").textValue();
         if (email == null || email.isEmpty()) {
+            System.out.println("Email is required");
             throw new ValidateInputException("Email is required", 400);
         }
 
         if (!email.matches(regex)) {
+            System.out.println("Email format is not correct");
             throw new ValidateInputException("Email format is not correct", 400);
         }
 
         String password = json.findPath("password").textValue();
         if (password == null || password.isEmpty()) {
+            System.out.println("Password is required");
             throw new ValidateInputException("Password is required", 400);
         }
 
 
         String username = json.findPath("username").textValue();
         if (username == null || username.isEmpty()) {
+            System.out.println("Username is required");
             throw new ValidateInputException("Username is required", 400);
         }
         if (!username.matches(regex2)) {
+            System.out.println("Username is cannot use special characters");
             throw new ValidateInputException("Username is cannot use special characters", 400);
         }
 
         String fullname = json.findPath("fullname").textValue();
         if (fullname == null || fullname.isEmpty()) {
+            System.out.println("Fullname is required");
             throw new ValidateInputException("Fullname is required", 400);
         }
 
         String gender = json.findPath("gender").textValue();
         if (gender == null || gender.isEmpty()) {
+            System.out.println("Gender is required");
             throw new ValidateInputException("Gender is required", 400);
         }
 
         String dob = json.findPath("dob").textValue();
         if (dob == null || dob.isEmpty()) {
+            System.out.println("Date of Birth is required");
             throw new ValidateInputException("Date of Birth is required", 400);
         }
 
         String phone = json.findPath("phone").textValue();
         if (phone == null || phone.isEmpty()) {
+            System.out.println("Phone is required");
             throw new ValidateInputException("Phone is required", 400);
         }
 
         String address = json.findPath("address").textValue();
         if (address == null || address.isEmpty()) {
+            System.out.println("Address is required");
             throw new ValidateInputException("Address is required", 400);
         }
 
         String city = json.findPath("city").textValue();
         if (city == null || city.isEmpty()) {
+            System.out.println("City is required");
             throw new ValidateInputException("City is required", 400);
         }
 
         String province = json.findPath("province").textValue();
         if (province == null || province.isEmpty()) {
+            System.out.println("Province is required");
             throw new ValidateInputException("Province is required", 400);
         }
 
         String country = json.findPath("country").textValue();
         if (country == null || country.isEmpty()) {
+            System.out.println("Country is required");
             throw new ValidateInputException("Country is required", 400);
         }
-
-        int role = json.findPath("role").asInt();
-        if (role == 0) {
-            throw new ValidateInputException("Role is required", 400);
-        }
+//  dikomen dulu untuk validasi role karena default dijadikan angka 1
+//        int role = json.findPath("role").asInt();
+//        if (role == 0) {
+//            throw new ValidateInputException("Role is required", 400);
+//        }
 
 
     }

@@ -21,10 +21,11 @@ lazy val myProject = (project in file("."))
   .enablePlugins(PlayJava, PlayEbean)
 libraryDependencies += guice
 libraryDependencies += javaWs
-//libraryDependencies += ehcache
+libraryDependencies += ehcache
 libraryDependencies += javaJdbc
 libraryDependencies += jdbc
 libraryDependencies += evolutions
+libraryDependencies +=  "org.postgresql" % "postgresql" % "9.3-1102-jdbc4"
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
 libraryDependencies += "javax.xml.bind" % "jaxb-api" % "2.1"
 libraryDependencies += "org.mindrot" % "jbcrypt" % "0.3m"

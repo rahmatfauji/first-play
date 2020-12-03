@@ -13,9 +13,9 @@ public class UserRole extends BaseModel{
     public int roles_id;
     public String users_id;
 
-    public void setData (String id, JsonNode json) {
+    public void setData (String id) {
         this.users_id=id;
-        this.roles_id=json.findPath("role").asInt();
+        this.roles_id=1;
 
     }
     public static final Finder<Long, UserRole> find = new Finder<>(UserRole.class);
